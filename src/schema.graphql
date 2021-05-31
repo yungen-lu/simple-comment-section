@@ -1,0 +1,48 @@
+type Query {
+  allUsers: [User!]!
+  postById(id: Int): Post
+  feed(skip: Int, take: Int, orderBy: PostOrderByInput): [Post!]!
+  allPosts: Post
+}
+
+type Mutation {
+  post(content: String!): Post!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+}
+
+type Post {
+  postedBy: User
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+}
+type Subscription {
+  newLink: Post
+}
+scalar DateTime
+# input PostCreateInput {
+#   content: String
+# }
+input PostOrderByInput {
+  content: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
+}
