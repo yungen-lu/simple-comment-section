@@ -1,12 +1,9 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { PubSub } = require('graphql-subscriptions');
-const { getUserId } = require('./utils');
-const { schema } = require('./schema');
+const { typeDefs, resolvers } = require('./schema');
 const { PrismaClient } = require('@prisma/client');
 const { createServer } = require('http');
-// const cookieParser = require('cookie-parser');
-// const cookie = require('cookie');
 const pubsub = new PubSub();
 const app = express();
 const prisma = new PrismaClient();
@@ -28,9 +25,6 @@ app.use(
     },
   })
 );
-// app.get('/app/home.js', (req, res) => {
-//   res.sendFile();
-// });
 app.use(
   '/app',
   (req, res, next) => {
@@ -42,30 +36,6 @@ app.use(
       console.log('OK');
       next();
     }
-    // const cookieString = req.headers.cookie;
-    // console.log(req.session.userId);
-    // let tmp = null;
-    // console.log('cookie ', cookieString);
-    // if (cookieString) {
-    //   const cookieParsed = cookie.parse(cookieString);
-    //   console.log('cookieParsed ', cookieParsed);
-    // if (cookieParsed.sid) {
-    //   let sidParsed = cookieParser.signedCookie(cookieParsed.sid, 'asd');
-    //   sidParsed = 'sess:' + sidParsed;
-    //   console.log(sidParsed);
-    //   redisClient
-    //     .get(sidParsed)
-    //     .then((e) => {
-    //       console.log(e);
-    //       tmp = JSON.parse(e);
-    //       console.log(tmp);
-    //       res.redirect('/test');
-    //     })
-    //     .catch((e) => {
-    //       console.error(e);
-    //     });
-    // }
-    // }
   },
   express.static('public/app')
 );
@@ -91,46 +61,12 @@ app.post('/login', express.json(), async (req, res) => {
     console.log(err);
     throw new Error('server error');
   }
-  // prisma.user
-  //   .findUnique({
-  //     where: { email: req.body.email },
-  //   })
-  //   .then((user) => {
-  //     if (!user) {
-  //       console.log('err');
-  //       throw new Error('No such user found');
-  //     }
-  //     // res.sendStatus(200);
-  //     return user;
-  //   })
-  //   .then((user) => {
-  //     bcrypt
-  //       .compare(req.body.password, user.password)
-  //       .then((valid) => {
-  //         if (!valid) {
-  //           console.log('err');
-  //           throw new Error('Invalid password');
-  //         }
-  //         req.session.userId = user.id;
-  //         // res.sendStatus(200);
-  //         res.redirect(301, '/app');
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.sendStatus(500);
-  //   });
 });
 
 app.post('/signup', express.json(), async (req, res) => {
   console.log(req.body);
   const bcrypt = require('bcryptjs');
 
-  //--------------
-  //
   try {
     const password = await bcrypt.hash(req.body.password, 10);
 
@@ -143,43 +79,8 @@ app.post('/signup', express.json(), async (req, res) => {
     console.log(err);
     throw new Error('server error');
   }
-
-  //
-  //
-  //
-  //
 });
 
-// app.use('/signup', express.static('public/signup'));
-// app.use('/login', express.static('public/login'));
-// app.use('/app', (req, res) => {
-//   console.log('connected');
-//   const cookieString = req.headers.cookie;
-//   console.log(req.session.userId);
-//   let tmp = null;
-//   console.log('cookie ', cookieString);
-//   if (cookieString) {
-//     const cookieParsed = cookie.parse(cookieString);
-//     console.log('cookieParsed ', cookieParsed);
-// if (cookieParsed.sid) {
-//   let sidParsed = cookieParser.signedCookie(cookieParsed.sid, 'asd');
-//   sidParsed = 'sess:' + sidParsed;
-//   console.log(sidParsed);
-//   redisClient
-//     .get(sidParsed)
-//     .then((e) => {
-//       console.log(e);
-//       tmp = JSON.parse(e);
-//       console.log(tmp);
-//       res.redirect('/test');
-//     })
-//     .catch((e) => {
-//       console.error(e);
-//     });
-// }
-//   }
-// });
-// app.use('/test', express.static('public/app'));
 app.get('*', (req, res) => {
   if (req.session.userId) {
     console.log('logged in');
@@ -191,18 +92,14 @@ app.get('*', (req, res) => {
 });
 
 const apolloServer = new ApolloServer({
-  schema: schema,
+  typeDefs: typeDefs,
+  resolvers: resolvers,
   context: ({ req }) => {
-    // console.log('id is ', req.session.userId);
     return {
       req,
       prisma,
       pubsub,
       userId: req.session.userId,
-
-      // req && (req.headers.authorization || req.headers.cookie)
-      //   ? getUserId(req).then()
-      //   : null,
     };
   },
 });

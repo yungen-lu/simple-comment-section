@@ -1,14 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const Query = require('./resolvers/Query')
-const Mutation = require('./resolvers/Mutation')
-const User = require('./resolvers/User')
-const Post = require('./resolvers/Post')
-const DateTime = require('./resolvers/DateTime')
-const Subscription = require('./resolvers/Subscription')
-const { makeExecutableSchema } = require('@graphql-tools/schema');
+const Query = require('./resolvers/Query');
+const Mutation = require('./resolvers/Mutation');
+const User = require('./resolvers/User');
+const Post = require('./resolvers/Post');
+const DateTime = require('./resolvers/DateTime');
+const Subscription = require('./resolvers/Subscription');
 
-const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8');
+const typeDefs = fs.readFileSync(
+  path.join(__dirname, 'schema.graphql'),
+  'utf8'
+);
 
 const resolvers = {
   Query,
@@ -16,13 +18,15 @@ const resolvers = {
   User,
   Post,
   DateTime,
-  Subscription
-}
+  Subscription,
+};
 
-const schema = makeExecutableSchema({
-  resolvers,
-  typeDefs,
-})
+// const schema = makeExecutableSchema({
+//   resolvers,
+//   typeDefs,
+// });
 module.exports = {
-  schema,
-}
+  // schema,
+  typeDefs,
+  resolvers,
+};

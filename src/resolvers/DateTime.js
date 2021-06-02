@@ -1,9 +1,9 @@
-const { DataTimeResolver } = require('graphql-scalars')
+const { DateTimeResolver } = require('graphql-scalars');
 
 function DateTime(parent, args, context) {
-    return DataTimeResolver
-  }
-  
-  module.exports = {
-    DateTime,
-  }
+  return DateTimeResolver;
+}
+
+module.exports = {
+  DateTime,
+};

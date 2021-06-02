@@ -1,18 +1,9 @@
-// import { ApolloClient } from 'apollo-client';
-// import { ApolloLink } from 'apollo-link';
 import { HttpLink } from '@apollo/client/link/http';
-// import { WebSocketLink } from '@apollo/client/link/ws';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { getOperationAST } from 'graphql';
-// ort { gql } from '@apollo/client/core';
-// import gql from 'graphql-tag';
-// import { split, HttpLink } from "@apollo/client/link";
-// import { getMainDefinition } from 'apollo'
-// import { ApolloLink } from 'apollo-link';
-import { split } from '@apollo/client/core';
+import { InMemoryCache } from '@apollo/client/cache';
+import { split } from '@apollo/client/link/core';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from '@apollo/client/core';
 
 class ConnectTo {
   constructor(domain, port, url) {
@@ -44,27 +35,15 @@ class ConnectTo {
     });
   }
   async wsQuery(DATA) {
-    return this.client
-      .subscribe({
-        query: DATA,
-      })
-      // .subscribe({
-      //   next(re) {
-      //     console.log(re);
-      //   },
-      // });
+    return this.client.subscribe({
+      query: DATA,
+    });
   }
   async httpMutate(DATA, objOfVar) {
     return this.client.mutate({
       mutation: DATA,
       variables: objOfVar,
     });
-    // .then((e) => {
-    //   console.log(e.data);
-    // })
-    // .catch((e) => {
-    //   console.error(e);
-    // });
   }
   async httpQuery(DATA, objOfVar) {
     return this.client.query({
@@ -73,7 +52,4 @@ class ConnectTo {
     });
   }
 }
-// module.exports = {
-//   ConnectTo,
-// }
 export { ConnectTo };
