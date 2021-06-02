@@ -1,0 +1,66 @@
+body {
+  background: #eee
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.form-signup {
+  max-width: 380px;
+  /* padding: 15px 35px 45px; */
+  padding: 1em 2em 3em;
+  background-color: #fff;
+  margin: 2 auto;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  z-index: 2;
+    /* text-align: center; */
+
+}
+.form-signup .form-signup-input {
+  position: relative;
+  height: auto;
+  padding: 1em;
+  display: block;
+  margin: 0 auto 0.5em auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-signup input [type="email"]{
+  margin-bottom: -1px;
+  /* display: block; */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signup input [type="password"]{
+  margin-bottom: 20px;
+  /* display: block; */
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+}
+.form-signup-bottom input [type="checkbox"]{
+
+  margin-right:5px;
+  text-align: left;
+}
+.form-signup-bottom button {
+  width: 100%;
+    margin-top: 1em;
+
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: #222;
+  color:#f5f5f5;
+  border-radius: 10px;
+  cursor: pointer;
+    text-align: center;
+
+}
+

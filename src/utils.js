@@ -13,6 +13,7 @@ async function getUserId(req) {
   if (req) {
     const authHeader = req.headers.authorization;
     const cookieString = req.headers.cookie;
+    const body = req.body;
     console.log('cookie ', cookieString);
     if (cookieString) {
       const cookieParsed = cookie.parse(cookieString);
@@ -21,18 +22,16 @@ async function getUserId(req) {
         let sidParsed = cookieParser.signedCookie(cookieParsed.sid, 'asd');
         sidParsed = 'sess:' + sidParsed;
         console.log(sidParsed);
-        return redisClient.get(sidParsed);
-        // .then((e) => {
-        //   console.log(e);
-        //   tmp = JSON.parse(e);
-        //   console.log(tmp.userId);
-        //   return tmp.userId;
-        // })
-        // .catch((e) => {
-        //   console.error(e);
-        // });
+        const result = await redisClient.get(sidParsed);
+        const parsed = JSON.parse(result);
+        return parsed.userId;
       }
     }
+    // if (body) {
+    //   if (body.email && body.password) {
+    //     const prisma = new PrismaClient();
+    //   }
+    // }
     if (authHeader) {
       const token = authHeader.replace('Bearer ', '');
       if (!token) {

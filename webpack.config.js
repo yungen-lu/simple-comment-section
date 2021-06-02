@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    signin: './src/signin/signin.js',
-    login: './src/login/login.js',
+    signup: './src/signup/signup.js',
+    home: './src/home/home.js',
     app: './src/app/app.js'
   },
   output: {
