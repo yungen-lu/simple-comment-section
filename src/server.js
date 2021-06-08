@@ -26,21 +26,21 @@ app.use(
   })
 );
 app.use(
-  '/app',
+  '/root',
   (req, res, next) => {
     console.log('connected to app');
     if (!req.session || !req.session.userId) {
       console.log('no cookie');
-      res.redirect('/home');
+      res.redirect('/loginsignup');
     } else {
       console.log('OK');
       next();
     }
   },
-  express.static('public/app')
+  express.static('public/root')
 );
 
-app.use('/home', express.static('public/home'));
+app.use('/loginsignup', express.static('public/loginsignup'));
 app.post('/login', express.json(), async (req, res) => {
   console.log(req.body);
   const bcrypt = require('bcryptjs');
@@ -56,7 +56,8 @@ app.post('/login', express.json(), async (req, res) => {
       throw new Error('Invalid password');
     }
     req.session.userId = user.id;
-    res.redirect(301, '/app');
+    // res.redirect(301, '/root');
+    res.status(200).send({ id: user.id, url: '/root' });
   } catch (err) {
     console.log(err);
     throw new Error('server error');
@@ -84,10 +85,10 @@ app.post('/signup', express.json(), async (req, res) => {
 app.get('*', (req, res) => {
   if (req.session.userId) {
     console.log('logged in');
-    res.redirect('/app');
+    res.redirect('/root');
   } else {
     console.log('not logged in');
-    res.redirect('/login');
+    res.redirect('/loginsignup');
   }
 });
 
