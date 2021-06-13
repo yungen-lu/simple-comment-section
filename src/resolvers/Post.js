@@ -7,4 +7,3 @@ function postedBy(parent, args, context) {
 module.exports = {
   postedBy,
 };
-

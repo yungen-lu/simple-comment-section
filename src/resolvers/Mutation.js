@@ -38,6 +38,9 @@ async function login(parent, args, context, info) {
 
 async function post(parent, args, context, info) {
   const { userId } = context;
+  if (!userId) {
+    throw new Error('unvalid user');
+  }
   const newLink = await context.prisma.post.create({
     data: {
       content: args.content,

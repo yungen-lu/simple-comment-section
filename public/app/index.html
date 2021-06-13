@@ -1,23 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width" />
-    <title> </title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    <button id="Button" >TEST</button>
-    <div id="container" class="container">
-      <div class="app myself">
-        <p>test</p>
+    <div class="mx-auto py-2 justify-between flex flex-col h-screen">
+      <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
+
+      <div
+        id="target"
+        class="
+          flex flex-col
+          space-y-4
+          p-3
+          overflow-y-auto
+          scrollbar-thumb-blue
+          scrollbar-thumb-rounded
+          scrollbar-track-blue-lighter
+          scrollbar-w-2
+          scrolling-touch
+        "
+      >
+        <template id="template-l">
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img
+                class="w-8 h-8 mt-2 rounded-full sm:w-10 sm:h-10"
+                src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                alt=""
+              />
+            </div>
+            <div
+              class="
+                flex-1
+                px-4
+                py-2
+                leading-relaxed
+                border
+                rounded-lg
+                mr-40
+                sm:px-6
+                sm:py-4
+              "
+            >
+              <div id="userAndTime-l">
+                <strong id="userName-l">Sarah</strong>
+                <span id="time-l" class="text-xs text-gray-400">3:34 PM</span>
+              </div>
+              <p class="text-sm text-left">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua.
+              </p>
+            </div>
+          </div>
+        </template>
+        <template id="template-r">
+          <div class="flex">
+            <div
+              class="
+                flex-1
+                px-4
+                py-2
+                leading-relaxed
+                border
+                rounded-lg
+                ml-40
+                sm:px-6
+                sm:py-4
+              "
+            >
+              <div id="userAndTime-r" class="text-right">
+                <strong id="userName-r">Sarah</strong>
+                <span id="time-r" class="text-xs text-gray-400">3:34 PM</span>
+              </div>
+              <p class="text-sm text-right">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua.
+              </p>
+            </div>
+            <div class="flex-shrink-0 ml-3">
+              <img
+                class="w-8 h-8 mt-2 rounded-full sm:w-10 sm:h-10"
+                src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                alt=""
+              />
+            </div>
+          </div>
+        </template>
       </div>
-      <div class="app">
-        <p>test2</p>
+      <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2">
+        <div class="relative flex">
+          <span class="absolute inset-y-0 flex items-center"> </span>
+          <input
+            id="textInput"
+            type="text"
+            placeholder="Write Something"
+            class="
+              w-full
+              focus:outline-none
+              focus:placeholder-gray-400
+              text-gray-600
+              placeholder-gray-600
+              pl-12
+              bg-gray-200
+              rounded-md
+              py-3
+            "
+          />
+          <div class="absolute right-0 items-center inset-y-0">
+            <button
+              id="textButton"
+              type="button"
+              class="
+                inline-flex
+                items-center
+                justify-center
+                rounded-full
+                h-12
+                w-12
+                transition
+                duration-500
+                ease-in-out
+                text-white
+                bg-blue-500
+                hover:bg-blue-400
+                focus:outline-none
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-6 w-6 transform rotate-90"
+              >
+                <path
+                  d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="app">
-        <p>test3</p>
-      </div>
+
+      <!-- <div class="flex fixed bottom-1 w-full mt-auto justify-center items-center"> -->
+      <!--   <input type="text" class="w-3/5 mb-1 border-2 border-gray-200" /> -->
+      <!--   <button type=""></button> -->
+      <!-- </div> -->
     </div>
   </body>
-  <script src="app.js"></script>
+  <style>
+    .scrollbar-w-2::-webkit-scrollbar {
+      width: 0.25rem;
+      height: 0.25rem;
+    }
+
+    .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
+      --bg-opacity: 1;
+      background-color: #f7fafc;
+      background-color: rgba(247, 250, 252, var(--bg-opacity));
+    }
+
+    .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
+      --bg-opacity: 1;
+      background-color: #edf2f7;
+      background-color: rgba(237, 242, 247, var(--bg-opacity));
+    }
+
+    .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+      border-radius: 0.25rem;
+    }
+  </style>
+
+  <script src="root.js"></script>
 </html>
