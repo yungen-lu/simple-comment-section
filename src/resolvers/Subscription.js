@@ -1,5 +1,7 @@
 function newLinkSubscribe(parent, args, context, info) {
-  if (!context.userId) {
+  console.log('|||', context.userId);
+  const userId = context.userId;
+  if (!userId) {
     throw new Error('no auth');
   }
   return context.pubsub.asyncIterator('NEW_LINK');

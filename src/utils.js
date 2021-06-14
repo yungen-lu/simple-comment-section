@@ -8,6 +8,24 @@ const redisClient = new Redis();
 function getTokenPayload(token) {
   return jwt.verify(token, APP_SECRET);
 }
+async function parseCookie(cookieString) {
+  if (cookieString) {
+    const cookieParsed = cookie.parse(cookieString);
+    console.log('cookieParsed ', cookieParsed);
+    if (cookieParsed.sid) {
+      let sidParsed = cookieParser.signedCookie(cookieParsed.sid, 'asd');
+      sidParsed = 'sess:' + sidParsed;
+      console.log(sidParsed);
+      const result = await redisClient.get(sidParsed);
+      const parsed = JSON.parse(result);
+      return parsed.userId;
+    }
+  } else {
+    return null;
+  }
+  // console.log('shit');
+  // throw new Error('Not authenticated');
+}
 
 async function getUserId(req) {
   if (req) {
@@ -48,4 +66,5 @@ async function getUserId(req) {
 module.exports = {
   APP_SECRET,
   getUserId,
+  parseCookie,
 };

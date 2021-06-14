@@ -37,7 +37,7 @@ async function login(parent, args, context, info) {
 }
 
 async function post(parent, args, context, info) {
-  const { userId } = context;
+  const userId = context.userId
   if (!userId) {
     throw new Error('unvalid user');
   }

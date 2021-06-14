@@ -4,15 +4,16 @@ const { PubSub } = require('graphql-subscriptions');
 const { typeDefs, resolvers } = require('./schema');
 const { PrismaClient } = require('@prisma/client');
 const { createServer } = require('http');
-const pubsub = new PubSub();
-const app = express();
-const prisma = new PrismaClient();
-const PORT = 4000;
+const { parseCookie } = require('./utils');
 const Redis = require('ioredis');
 const session = require('express-session');
-
 let RedisStore = require('connect-redis')(session);
+const pubsub = new PubSub();
+const prisma = new PrismaClient();
 const redisClient = new Redis();
+const app = express();
+const PORT = 4000;
+
 app.use(
   session({
     name: 'sid',
@@ -26,7 +27,7 @@ app.use(
   })
 );
 app.use(
-  '/root',
+  '/app',
   (req, res, next) => {
     console.log('connected to app');
     if (!req.session || !req.session.userId) {
@@ -37,7 +38,7 @@ app.use(
       next();
     }
   },
-  express.static('public/root')
+  express.static('public/app')
 );
 
 app.use('/loginsignup', express.static('public/loginsignup'));
@@ -56,8 +57,8 @@ app.post('/login', express.json(), async (req, res) => {
       throw new Error('Invalid password');
     }
     req.session.userId = user.id;
-    // res.redirect(301, '/root');
-    res.status(200).send({ id: user.id, url: '/root' });
+    // res.redirect(301, '/app');
+    res.status(200).send({ id: user.id, url: '/app' });
   } catch (err) {
     console.log(err);
     throw new Error('server error');
@@ -78,14 +79,15 @@ app.post('/signup', express.json(), async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     console.log(err);
-    throw new Error('server error');
+    res.sendStatus(500);
+    // throw new Error('server error');
   }
 });
 
 app.get('*', (req, res) => {
   if (req.session.userId) {
     console.log('logged in');
-    res.redirect('/root');
+    res.redirect('/app');
   } else {
     console.log('not logged in');
     res.redirect('/loginsignup');
@@ -95,12 +97,31 @@ app.get('*', (req, res) => {
 const apolloServer = new ApolloServer({
   typeDefs: typeDefs,
   resolvers: resolvers,
-  context: ({ req }) => {
+  subscriptions: {
+    onConnect: (connectionParams, webSocket, context) => {
+      console.log(webSocket.upgradeReq.headers.cookie);
+      return {
+        userId: parseCookie(webSocket.upgradeReq.headers.cookie),
+      };
+    },
+  },
+  context: ({ req, res, connection }) => {
+    // console.log(req.session);
+    if (connection) {
+      if (!userId) {
+        res.status(500).send('not authenticated');
+      }
+      return {
+        prisma,
+        pubsub,
+        userId: connection.context.userId,
+      };
+    }
     return {
-      req,
+      // req,
       prisma,
       pubsub,
-      userId: req.session.userId,
+      userId: req.session && req.session.userId ? req.session.userId : null,
     };
   },
 });

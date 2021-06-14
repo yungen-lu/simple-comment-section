@@ -9,10 +9,12 @@ class ConnectTo {
   constructor(domain, port, url) {
     const httpLink = new HttpLink({
       uri: `http://${domain}:${port}${url}`,
+      credentials: 'include',
     });
 
     const wsLink = new WebSocketLink({
       uri: `ws://${domain}:${port}${url}`,
+      credentials: 'include',
       options: {
         reconnect: true,
       },

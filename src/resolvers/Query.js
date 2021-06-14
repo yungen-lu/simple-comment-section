@@ -7,7 +7,8 @@ function postById(parent, args, context, info) {
   });
 }
 async function feed(parent, args, context, info) {
-  if (context.userId === null) {
+  const userId = context.userId;
+  if (!userId) {
     throw new Error('No Auth');
   }
   const posts = await context.prisma.post.findMany({
