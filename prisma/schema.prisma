@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -10,14 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// model Link {
-//   id          Int      @id @default(autoincrement())
-//   createdAt   DateTime @default(now())
-//   description String
-//   url         String
-//   postedBy    User?    @relation(fields: [postedById], references: [id])
-//   postedById  Int?
-// }
 model User {
   id       Int    @id @default(autoincrement())
   name     String
