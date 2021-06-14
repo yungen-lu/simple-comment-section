@@ -21,12 +21,7 @@ const resolvers = {
   Subscription,
 };
 
-// const schema = makeExecutableSchema({
-//   resolvers,
-//   typeDefs,
-// });
 module.exports = {
-  // schema,
   typeDefs,
   resolvers,
 };

@@ -3,13 +3,10 @@ import './style.css';
 import { gql } from '@apollo/client/core';
 import { ConnectTo } from '../qraphql/app';
 import Cookies from 'js-cookie';
-// const button = document.querySelector('#Button');
-// button.addEventListener('click', signUp);
 const textButton = document.querySelector('#textButton');
 textButton.addEventListener('click', textInputFunc);
 const userid = Cookies.get('id');
 function textInputFunc(e) {
-  // e.preventDefault();
   const textInput = document.querySelector('#textInput');
   const INPUT = gql`
     mutation post($content: String!) {
@@ -100,8 +97,3 @@ function inserNewDiv(e) {
     }
   });
 }
-// let newNode = document.createElement('div');
-// newNode.classList.add('app');
-// newNode.classList.add('myself');
-// newNode.innerText = el.content;
-// container.appendChild(newNode);

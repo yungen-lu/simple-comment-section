@@ -18,3 +18,6 @@ pids
 *.pid
 *.seed
 *.pid.lock
+
+public/loginsignup/loginsignup.js
+public/app/app.js

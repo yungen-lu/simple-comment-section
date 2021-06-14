@@ -34,9 +34,6 @@ type Subscription {
   newLink: Post
 }
 scalar DateTime
-# input PostCreateInput {
-#   content: String
-# }
 input PostOrderByInput {
   content: Sort
   createdAt: Sort

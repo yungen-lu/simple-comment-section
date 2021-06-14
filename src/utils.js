@@ -23,8 +23,6 @@ async function parseCookie(cookieString) {
   } else {
     return null;
   }
-  // console.log('shit');
-  // throw new Error('Not authenticated');
 }
 
 async function getUserId(req) {
@@ -45,11 +43,6 @@ async function getUserId(req) {
         return parsed.userId;
       }
     }
-    // if (body) {
-    //   if (body.email && body.password) {
-    //     const prisma = new PrismaClient();
-    //   }
-    // }
     if (authHeader) {
       const token = authHeader.replace('Bearer ', '');
       if (!token) {

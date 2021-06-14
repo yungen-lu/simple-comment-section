@@ -88,24 +88,6 @@ function changeToSignup() {
   button.innerText = signup_VAR;
   welcomeText.innerText = welcome_SIGNUP;
   change.innerText = 'Login';
-  // const inputs = document.querySelector('#inputs');
-  // inputs.appendChild(newDiv);
-  // let newInput = document.createElement('input');
-  // newInput.type = 'text';
-  // newInput.id = 'user';
-  // newInput.name = 'user';
-  // newInput.placeholder = 'username';
-  // newInput.className = 'form-home-input';
-  // newInput.classList.add('fadein');
-  // inputs.appendChild(newInput);
-  // title.classList.add('fadeout');
-  // setTimeout(() => {
-  //   title.innerText = 'Signup';
-  //   changebutton.innerText = 'Login';
-  //   title.classList.remove('fadeout');
-  //   title.classList.add('fadein');
-  // }, 500);
-  // homebutton.innerText = 'Signup';
 }
 function changeToLogin() {
   const rmDiv = document.querySelector('#username');
@@ -115,17 +97,6 @@ function changeToLogin() {
   button.innerText = login_VAR;
   welcomeText.innerText = welcome_LOGIN;
   change.innerText = 'Signup';
-
-  //   let newInput = document.querySelector('#user');
-  //   newInput.classList.remove('fadein');
-  //   newInput.classList.add('fadeout');
-  //   newInput.remove();
-  //   // const title = document.querySelector('.form-home-heading');
-  //   setTimeout(() => {
-  //     title.innerText = 'Login';
-  //     changebutton.innerText = 'Signup';
-  //   }, 500);
-  //   homebutton.innerText = 'Login';
 }
 function getState() {
   if (button.innerText === login_VAR) {
