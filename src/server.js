@@ -5,6 +5,7 @@ const { typeDefs, resolvers } = require('./schema');
 const { PrismaClient } = require('@prisma/client');
 const { createServer } = require('http');
 const { parseCookie } = require('./utils');
+const { APP_PORT, SESSION_SECRET } = require('./constants');
 const Redis = require('ioredis');
 const session = require('express-session');
 let RedisStore = require('connect-redis')(session);
@@ -12,13 +13,12 @@ const pubsub = new PubSub();
 const prisma = new PrismaClient();
 const redisClient = new Redis();
 const app = express();
-const PORT = 4000;
 
 app.use(
   session({
     name: 'sid',
     store: new RedisStore({ client: redisClient }),
-    secret: 'asd',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -108,7 +108,7 @@ const apolloServer = new ApolloServer({
   context: ({ req, res, connection }) => {
     // console.log(req.session);
     if (connection) {
-      if (!userId) {
+      if (!connection.context.userId) {
         res.status(500).send('not authenticated');
       }
       return {
@@ -130,11 +130,11 @@ apolloServer.applyMiddleware({ app });
 const server = createServer(app);
 apolloServer.installSubscriptionHandlers(server);
 
-server.listen(PORT, () => {
+server.listen(APP_PORT, () => {
   console.log(
-    `🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`
+    `🚀 Server ready at http://localhost:${APP_PORT}${apolloServer.graphqlPath}`
   );
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`
+    `🚀 Subscriptions ready at ws://localhost:${APP_PORT}${apolloServer.subscriptionsPath}`
   );
 });

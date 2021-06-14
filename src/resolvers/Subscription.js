@@ -1,10 +1,11 @@
+const { POST_LINK } = require('../constants');
 function newLinkSubscribe(parent, args, context, info) {
   console.log('|||', context.userId);
   const userId = context.userId;
   if (!userId) {
     throw new Error('no auth');
   }
-  return context.pubsub.asyncIterator('NEW_LINK');
+  return context.pubsub.asyncIterator(POST_LINK);
 }
 
 const newLink = {
