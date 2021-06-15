@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  labels:
+    tier: postgres
+spec:
+  selector:
+    tier: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432

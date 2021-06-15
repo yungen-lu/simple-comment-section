@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      tier: redis
+  template:
+    metadata:
+      labels:
+        tier: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 6379
+      #   volumeMounts:
+      #     - name: reis-persistent-storage
+      #       mountPath: /data/redis
+      # volumes:
+      #   - name: redis-persistent-storage
+      #     persistentVolumeClaim:
+      #       claimName: redis-pv-claim
