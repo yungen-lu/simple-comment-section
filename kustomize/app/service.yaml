@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-comment-section-svc
+  labels:
+    app: simple-comment-section
+spec:
+  selector:
+    app: simple-comment-section
+  ports:
+  - port: 4000
+    targetPort: 4000
