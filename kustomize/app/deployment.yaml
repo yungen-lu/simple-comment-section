@@ -14,6 +14,7 @@ spec:
       containers:
       - name: simple-comment-section
         image: yungen/simple-comment-section:latest
+        imagePullPolicy: "Always"
         env:
           - name: DATABASE_URL
             valueFrom:
@@ -37,4 +38,3 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 4000
-      restartPolicy: Never
