@@ -10,7 +10,7 @@
     "db": "node data/db.js",
     "server": "node src/server",
     "start": "webpack serve --open",
-    "deploy": "npx prisma migrate"
+    "deploy": "npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
