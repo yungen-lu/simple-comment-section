@@ -19,4 +19,4 @@ COPY --from=base public/app/app.js public/app
 COPY --from=base public/loginsignup/loginsignup.js public/loginsignup
 RUN npm install
 # RUN npm deploy
-CMD ["node","src/server.js"]
+CMD ["npm","run","deploy","&&","node","src/server.js"]
