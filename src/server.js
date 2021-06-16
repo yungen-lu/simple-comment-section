@@ -5,13 +5,18 @@ const { typeDefs, resolvers } = require('./schema');
 const { PrismaClient } = require('@prisma/client');
 const { createServer } = require('http');
 const { parseCookie } = require('./utils');
-const { APP_PORT, SESSION_SECRET } = require('./constants');
+const { APP_PORT, SESSION_SECRET, REDIS_HOST } = require('./constants');
 const Redis = require('ioredis');
 const session = require('express-session');
 let RedisStore = require('connect-redis')(session);
+let redisClient;
+if (process.env.NODE_ENV == 'production') {
+  redisClient = new Redis(6379, REDIS_HOST);
+} else {
+  redisClient = new Redis();
+}
 const pubsub = new PubSub();
 const prisma = new PrismaClient();
-const redisClient = new Redis();
 const app = express();
 
 app.use(
@@ -137,4 +142,5 @@ server.listen(APP_PORT, () => {
   console.log(
     `🚀 Subscriptions ready at ws://localhost:${APP_PORT}${apolloServer.subscriptionsPath}`
   );
+  console.log(redisClient.status);
 });

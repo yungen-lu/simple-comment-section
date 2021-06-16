@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  // mode: 'development',
   entry: {
     app: './src/app/app.js',
     loginsignup: './src/loginsignup/loginsignup.js',
