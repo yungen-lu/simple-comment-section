@@ -7,5 +7,11 @@
   "name": "simple-comment-section",
   "version": "1.0.0",
   "author": "yungen-lu <70182238+yungen-lu@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yungen-lu/simple-comment-section.git"
+  },
+  "homepage": "https://github.com/yungen-lu/simple-comment-section#readme",
+  "description": ""
 }

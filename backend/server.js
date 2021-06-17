@@ -8,13 +8,11 @@ const { parseCookie } = require('./utils');
 const { APP_PORT, SESSION_SECRET, REDIS_HOST } = require('./constants');
 const Redis = require('ioredis');
 const session = require('express-session');
-let RedisStore = require('connect-redis')(session);
-let redisClient;
-if (process.env.NODE_ENV == 'production') {
-  redisClient = new Redis(6379, REDIS_HOST);
-} else {
-  redisClient = new Redis();
-}
+const RedisStore = require('connect-redis')(session);
+const redisClient = new Redis({
+  port: 6379,
+  host: REDIS_HOST,
+});
 const pubsub = new PubSub();
 const prisma = new PrismaClient();
 const app = express();

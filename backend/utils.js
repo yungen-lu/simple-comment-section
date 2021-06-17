@@ -1,8 +1,11 @@
 const cookieParser = require('cookie-parser');
 const cookie = require('cookie');
 const Redis = require('ioredis');
-const { SESSION_SECRET } = require('./constants');
-const redisClient = new Redis();
+const { SESSION_SECRET, REDIS_HOST } = require('./constants');
+const redisClient = new Redis({
+  port: 6379,
+  host: REDIS_HOST,
+});
 
 async function parseCookie(cookieString) {
   if (cookieString) {
@@ -17,7 +20,7 @@ async function parseCookie(cookieString) {
       console.log(sidParsed);
       const result = await redisClient.get(sidParsed);
       const parsed = JSON.parse(result);
-      console.log('||',parsed)
+      console.log('||', parsed);
       return parsed.userId;
     }
   } else {

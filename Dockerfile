@@ -1,39 +1,29 @@
-FROM node:16 AS base
+FROM node:16 as webpackbase
 
-WORKDIR /app
-
-COPY *.json ./
-COPY yarn.lock ./
-COPY frontend/*.json ./frontend/
-COPY frontend/*.js ./frontend/
-
-COPY backend/*.json ./backend/
-RUN yarn install --pure-lockfile --production --ignore-scripts
-RUN mkdir -p /tmp/backend
-RUN cp -r backend/node_modules /tmp/backend/node_modules
-RUN cp -r node_modules /tmp/node_modules
-RUN yarn install --pure-lockfile
-
-COPY frontend/src ./frontend/src
-COPY frontend/public ./frontend/public
-COPY backend/prisma ./backend/prisma
-RUN yarn workspace frontend run build
-RUN yarn workspace backend run prisma:gen
-
-
-FROM node:16-slim
-
-COPY --from=base /tmp/node_modules ./node_modules
-COPY --from=base /tmp/backend/node_modules ./backend/node_modules
-COPY --from=base /app/node_modules/@prisma/client ./node_modules/@prisma/client
-COPY --from=base /app/node_modules/.prisma/client ./node_modules/.prisma/client
-COPY --from=base /app/backend/node_modules/.prisma/client ./backend/node_modules/.prisma/client
-COPY --from=base /app/frontend/public ./frontend/public
-
-COPY backend/resolvers ./backend/resolvers
-COPY backend/schema.graphql ./backend/
-COPY backend/*.js ./backend/
-COPY backend/package.json ./backend/
+WORKDIR /usr/src/app
 COPY package.json ./
+COPY yarn.lock ./
+COPY frontend ./frontend
+RUN yarn install --frozen-lockfile
+RUN yarn workspace frontend run build-prod
 
+FROM node:16 as base
+
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY yarn.lock ./
+COPY backend ./backend
+RUN yarn install --production
+
+
+FROM node:alpine
+WORKDIR /usr/src/app
+RUN apk upgrade --update-cache --available && \
+    apk add openssl && \
+    rm -rf /var/cache/apk/*
+COPY --from=webpackbase /usr/src/app/frontend/public ./frontend/public
+COPY --from=base /usr/src/app/backend ./backend
+COPY --from=base /usr/src/app/node_modules ./node_modules
+COPY package.json ./
+RUN yarn workspace backend run prisma:gen
 CMD ["yarn","workspace","backend","run","server"]
