@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-comment-section-ingress
+  labels:
+    name: simple-comment-section-ingress
+spec:
+  rules:
+  - host: simple-comment-section.k8s.yungen.studio
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: simple-comment-section-svc
+            port: 
+              number: 4000
