@@ -9,9 +9,9 @@ COPY frontend/*.js ./frontend/
 
 COPY backend/*.json ./backend/
 RUN yarn install --pure-lockfile --production --ignore-scripts
-COPY backend/node_modules /tmp/backend/node_modules
-COPY node_modules /tmp/node_modules
-
+RUN mkdir -p /tmp/backend
+RUN cp -r backend/node_modules /tmp/backend/node_modules
+RUN cp -r node_modules /tmp/node_modules
 RUN yarn install --pure-lockfile
 
 COPY frontend/src ./frontend/src
