@@ -21,3 +21,15 @@ pids
 
 public/loginsignup/loginsignup.js
 public/app/app.js
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+frontend/public/app/app.js
+frontend/public/loginsignup/loginsignup.js
+frontend/public/app/app.js.LICENSE.txt
+.gitignore

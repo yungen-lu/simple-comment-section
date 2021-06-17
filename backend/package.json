@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "prisma:gen": "npx prisma generate",
+    "server": "node ./server.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.25.0",
+    "apollo-server-express": "^2.25.1",
+    "bcryptjs": "^2.4.3",
+    "connect-redis": "^6.0.0",
+    "cookie": "^0.4.1",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "graphql": "^15.5.0",
+    "graphql-scalars": "^1.10.0",
+    "graphql-subscriptions": "^1.2.1",
+    "ioredis": "^4.27.6",
+    "prisma": "^2.25.0"
+  }
+}

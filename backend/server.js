@@ -43,10 +43,10 @@ app.use(
       next();
     }
   },
-  express.static('public/app')
+  express.static('../frontend/public/app')
 );
 
-app.use('/loginsignup', express.static('public/loginsignup'));
+app.use('/loginsignup', express.static('../frontend/public/loginsignup'));
 app.post('/login', express.json(), async (req, res) => {
   console.log(req.body);
   const bcrypt = require('bcryptjs');
@@ -81,7 +81,7 @@ app.post('/signup', express.json(), async (req, res) => {
       data: { email: req.body.email, name: req.body.user, password },
     });
     console.log(user);
-    res.sendStatus(200);
+    res.status(200).send({ id: user.id, url: '/app' });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
