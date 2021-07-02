@@ -21,6 +21,7 @@ pids
 
 public/loginsignup/loginsignup.js
 public/app/app.js
+backend/dist
 
 .yarn/*
 !.yarn/patches
