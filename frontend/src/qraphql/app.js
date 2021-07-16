@@ -6,14 +6,14 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { ApolloClient } from '@apollo/client/core';
 
 class ConnectTo {
-  constructor(domain, port, url) {
+  constructor(WS_URI,HTTP_URI) {
     const httpLink = new HttpLink({
-      uri: `http://${domain}:${port}/${url}`,
+      uri: HTTP_URI,
       credentials: 'include',
     });
 
     const wsLink = new WebSocketLink({
-      uri: `ws://${domain}:${port}/${url}`,
+      uri: WS_URI,
       credentials: 'include',
       options: {
         reconnect: true,

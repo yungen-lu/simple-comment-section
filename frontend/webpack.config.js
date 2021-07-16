@@ -1,6 +1,18 @@
 const path = require('path');
 const { DefinePlugin } = require('webpack');
+DOMAIN = process.env.APP_DOMAIN || 'localhost'
+PORT = process.env.APP_PORT || '4000'
+URL = process.env.APP_URL || 'graphql'
 
+let WS_URI
+let HTTP_URI
+if (process.env.NODE_ENV === 'production') {
+  WS_URI = "wss://" + DOMAIN + "/" + URL;
+  HTTP_URI = "https://" + DOMAIN + "/" + URL;
+}else {
+  WS_URI = "ws://" + DOMAIN + ":" + PORT + "/" + URL;
+  HTTP_URI = "http://" + DOMAIN + ":" + PORT + "/" + URL;
+}
 module.exports = {
   // mode: 'development',
   entry: {
@@ -22,9 +34,8 @@ module.exports = {
   },
   plugins: [
     new DefinePlugin({
-      DOMAIN: JSON.stringify(process.env.APP_DOMAIN) || JSON.stringify('localhost'),
-      PORT: JSON.stringify(process.env.APP_PORT) || JSON.stringify('4000'),
-      URL: JSON.stringify(process.env.APP_URL) || JSON.stringify('graphql'),
+      APP_WS_URI: JSON.stringify(WS_URI),
+      APP_HTTP_URI: JSON.stringify(HTTP_URI)
     }),
   ],
 };

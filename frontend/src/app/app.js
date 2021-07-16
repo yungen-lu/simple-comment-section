@@ -17,7 +17,7 @@ function textInputFunc(e) {
   `;
   test.httpMutate(INPUT, { content: textInput.value });
 }
-const test = new ConnectTo(DOMAIN, PORT, URL);
+const test = new ConnectTo(APP_WS_URI,APP_HTTP_URI);
 const DATA = gql`
   query {
     feed(orderBy: { createdAt: asc }) {
