@@ -1,4 +1,5 @@
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   // mode: 'development',
@@ -19,4 +20,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new DefinePlugin({
+      DOMAIN: JSON.stringify(process.env.APP_DOMAIN) || JSON.stringify('localhost'),
+      PORT: JSON.stringify(process.env.APP_PORT) || JSON.stringify('4000'),
+      URL: JSON.stringify(process.env.APP_URL) || JSON.stringify('graphql'),
+    }),
+  ],
 };

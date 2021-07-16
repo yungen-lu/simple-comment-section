@@ -17,7 +17,7 @@ function textInputFunc(e) {
   `;
   test.httpMutate(INPUT, { content: textInput.value });
 }
-const test = new ConnectTo('localhost', '4000', '/graphql');
+const test = new ConnectTo(DOMAIN, PORT, URL);
 const DATA = gql`
   query {
     feed(orderBy: { createdAt: asc }) {
@@ -55,7 +55,7 @@ test.wsQuery(SUB).then((e) => {
   e.subscribe({
     next(e) {
       console.log(e);
-      insertNewDivSync(e)
+      insertNewDivSync(e);
     },
   });
 });
