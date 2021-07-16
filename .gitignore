@@ -33,3 +33,4 @@ frontend/public/app/app.js
 frontend/public/loginsignup/loginsignup.js
 frontend/public/app/app.js.LICENSE.txt
 .gitignore
+backend/dist/*
