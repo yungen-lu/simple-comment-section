@@ -1,0 +1,24 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: app-update
+spec:
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        email: 70182238+yungen-lu@users.noreply.github.com
+        name: yungen-lu
+      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: master
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: simple-comment-section-source
+  update:
+    path: ./kustomize/app
+    strategy: Setters
