@@ -6,7 +6,7 @@ metadata:
     name: simple-comment-section-ingress
 spec:
   rules:
-  - host: simple-comment-section.k8s.yungen.studio
+  - host: comment.k8s.yungen.studio
     http:
       paths:
       - pathType: Prefix
