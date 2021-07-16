@@ -78,6 +78,7 @@ app.post('/signup', express.json(), async (req, res) => {
       data: { email: req.body.email, name: req.body.user, password },
     });
     console.log(user);
+    req.session.userId = user.id;
     res.status(200).send({ id: user.id, url: '/app' });
   } catch (err) {
     console.log(err);

@@ -1,8 +1,8 @@
 const assert = require('assert').strict;
-const SESSION_SECRET = process.env.SESSION_SECRET;
-const APP_PORT = process.env.APP_PORT;
+const SESSION_SECRET = process.env.SESSION_SECRET || 'asd';
+const APP_PORT = process.env.APP_PORT || '4000';
 const POST_LINK = 'POST_LINK';
-const REDIS_HOST = process.env.REDIS_HOST;
+const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 // if (process.env.NODE_ENV == 'production') {
 //   REDIS_HOST = process.env.REDIS_HOST;
 assert.ok(REDIS_HOST, 'REDIS_HOST is required');

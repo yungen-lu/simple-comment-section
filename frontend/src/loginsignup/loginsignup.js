@@ -36,7 +36,6 @@ function sendLoginReq(e) {
       console.log(e.data);
       console.log('HI');
       Cookies.set('id', e.data.id, { expires: 1 });
-      // window.location.href = 'app';
       window.location = e.data.url;
     })
     .catch((err) => {
@@ -55,8 +54,10 @@ function sendSignupReq(e) {
   };
   axios
     .post('/signup', postObj)
-    .then(() => {
+    .then((e) => {
       console.log('HI');
+      Cookies.set('id', e.data.id, { expires: 1 });
+      window.location = e.data.url;
     })
     .catch((err) => {
       console.log(err);
