@@ -6,7 +6,7 @@ COPY yarn.lock ./
 COPY frontend ./frontend
 RUN yarn install --frozen-lockfile
 # tmp fix
-ENV APP_PORT=4000
+ENV APP_PORT=443
 ENV APP_DOMAIN=comment.k8s.yungen.studio
 RUN yarn workspace frontend run build-prod
 
