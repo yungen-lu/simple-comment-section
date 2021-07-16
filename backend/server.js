@@ -64,7 +64,6 @@ app.post('/login', express.json(), async (req, res) => {
     res.status(200).send({ id: user.id, url: '/app' });
   } catch (err) {
     console.log(err);
-    throw new Error('server error');
   }
 });
 
@@ -83,7 +82,6 @@ app.post('/signup', express.json(), async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
-    // throw new Error('server error');
   }
 });
 
