@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: simple-comment-section
-        image: yungen/simple-comment-section:latest
-        imagePullPolicy: "Always"
+        image: yungen/simple-comment-section:1.0.0  # {"$imagepolicy": "app:simple-comment-section-policy"}
+        imagePullPolicy: "IfNotPresent"
         env:
           - name: DATABASE_URL
             valueFrom:
