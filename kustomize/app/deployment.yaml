@@ -12,29 +12,29 @@ spec:
         app: simple-comment-section
     spec:
       containers:
-      - name: simple-comment-section
-        image: yungen/simple-comment-section:1.0.0  # {"$imagepolicy": "app:simple-comment-section-policy"}
-        imagePullPolicy: "IfNotPresent"
-        env:
-          - name: DATABASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: simple-comment-section-secret
-                key: database_url
-          - name: APP_PORT
-            value: "4000"
-          - name: SESSION_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: simple-comment-section-secret
-                key: session_secret
-          - name: REDIS_HOST
-            value: redis-svc
-          - name: NODE_ENV
-            value: production
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 4000
+        - name: simple-comment-section
+          image: yungen/simple-comment-section:1.0.2 # {"$imagepolicy": "app:simple-comment-section-policy"}
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: simple-comment-section-secret
+                  key: database_url
+            - name: APP_PORT
+              value: "4000"
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: simple-comment-section-secret
+                  key: session_secret
+            - name: REDIS_HOST
+              value: redis-svc
+            - name: NODE_ENV
+              value: production
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 4000
